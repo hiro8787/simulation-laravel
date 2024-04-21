@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AtteController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +14,11 @@ use App\Http\Controllers\AtteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', [AtteController::class, 'index']);
+*/
+Route::get('/', [UserController::class, 'login']);
+Route::get('/register', [AtteController::class, 'register']);
+Route::get('/stamp', [UserController::class, 'stamp']);
+Route::get('/date', [AtteController::class, 'date']);
+

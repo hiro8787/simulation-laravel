@@ -10,4 +10,19 @@ class AtteController extends Controller
     {
         return view('login');
     }
+    
+    public function register()
+    {
+        return view('register');
+    }
+
+    public function stamp()
+    {
+        return view('stamp');
+    }
+
+    public function date()
+    {
+        return view('date');
+    }
 }
