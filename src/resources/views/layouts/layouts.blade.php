@@ -16,10 +16,17 @@
         <div class="header">
             <div class="header-logo">Atte</div>
             <nav class="header-nav">
+                @if (Auth::check())
                 <ul class="header-nav-list">
                     <li class="header-nav-item"><a href="../stamp">ホーム</a></li>
                     <li class="header-nav-item"><a href="../date">日付一覧</a></li>
-                    <li class="header-nav-item"><a href="../">ログアウト</a></li>
+                    <li class="header-nav-item">
+                        <form class="form" action="/logout" method="post">
+                            @csrf
+                            <button class="header-nav__button">ログアウト</button>
+                        </form>
+                    </li>
+                    @endif
                 </ul>
             </nav>
         </div>

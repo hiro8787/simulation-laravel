@@ -8,7 +8,7 @@
 <main>
     <div class="main">
         <div class="main-item">会員登録
-            <form class="form" name="login" method="GET" action="/stamp">
+            <form class="form" name="login" method="POST" action="/register">
                 @csrf
                 <div class="form-item">
                     <div class="form-item-text">

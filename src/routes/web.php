@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AtteController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +14,18 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', [AtteController::class, 'index']);
-*/
-Route::get('/', [UserController::class, 'login']);
-Route::get('/register', [AtteController::class, 'register']);
-Route::get('/stamp', [UserController::class, 'stamp']);
-Route::get('/date', [AtteController::class, 'date']);
 
+Route::post('/login', [AtteController::class, 'login']);
+Route::get('/register', [AtteController::class, 'store']);
+
+Route::middleware('auth')->group(function (){
+    Route::get('/', [AtteController::class, 'login']);
+    Route::post('/stamp', [AtteController::class, 'stamp']);
+    Route::get('/date', [AtteController::class, 'date']);
+});
+//Route::post('/works', [AtteController::class, 'date']);//
+
+//Route::prefix('stamp')->group(function () {
+    //Route::get('/', [WorkController::class, 'stamp']);
+    //Route::post('/stamp', [WorkController::class, 'create']);
+//});

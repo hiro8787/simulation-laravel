@@ -8,7 +8,7 @@
 <main>
     <div class="main">
         <div class="main-item">ログイン
-            <form class="form" name="login" method="GET" action="/stamp">
+            <form class="form" name="login" method="POST" action="/login">
                 @csrf
                 <div class="form-item">
                     <div class="form-item-text">
