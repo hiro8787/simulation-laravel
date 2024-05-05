@@ -12,15 +12,28 @@ class Work extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
-    /*protected $guarded = array('id');
+
+    protected $guarded = array('id');
     public static $rules = array(
         'user_id' => 'required',
-        'date' => 'required',
-        'start_time' => 'required',
-        'end_time' => 'required',
+        'work_start' => 'required',
+        'work_end' => 'required',
+        'work_date' => 'required',
     );
 
-    public function getTitle(){
-        return 'ID'.$this->id . ':' . $this->date .':' . $this->start_time . ':' . $this->end_time;
-    }*/
+    public function getWork_start(){
+        return 'ID'.$this->id . ':' .  $this->work_start;
+    }
+    public function getWork_end(){
+        return 'ID'.$this->id . ':' .  $this->work_end;
+    }
+    public function getWork_date(){
+        return 'ID'.$this->id . ':' .  $this->work_date;
+    }
+    public function getDetail()
+    {
+        return [
+            'work_start' => $this->work_start,
+        ];
+    }
 }

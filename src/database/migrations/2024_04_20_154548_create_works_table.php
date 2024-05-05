@@ -15,10 +15,10 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->date('date');
-            $table->datetime('start_time');
-            $table->datetime('end_time');
+            $table->integer('user_id')->constrained()->cascadeOnDelete();
+            $table->timestamp('work_start');
+            $table->timestamp('work_end');
+            $table->date('work_date');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

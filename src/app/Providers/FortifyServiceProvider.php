@@ -28,12 +28,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::registerView(function () {
-        return view('register');
+        return view('auth.register');
     });
 
         Fortify::loginView(function () {
-        return view('login');
+        return view('auth.login');
     });
 
         RateLimiter::for('login', function (Request $request) {
@@ -41,5 +42,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         return Limit::perMinute(10)->by($email . $request->ip());
     });
+
+        $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
     }
 }

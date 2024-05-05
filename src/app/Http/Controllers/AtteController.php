@@ -2,39 +2,37 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Work;
+use App\Models\Rest;
 use Illuminate\Http\Request;
 
 class AtteController extends Controller
 {
-    public function store(Request $request)
+
+    public function index()
     {
-        $post=new User();
-        $post->name=$request->name;
-        //$post->user_id=auth()->user()->id;
-        $post->save();
-        return view('stamp');
+        $users = User::all();
+        return view('auth.login', compact('users'));
     }
 
-    public function login()
+
+    public function store()
     {
-        return view('login');
+        $users = User::all();
+        return view('stamp', ['users' => $users]);
     }
     
-    public function register()
-    {
-        return view('register');
-    }
-
-    public function stamp(Request $request)
-    {
-        $users = $request->only(['name']);
-        return view('stamp', compact('users'));
-    }
-
     public function date()
     {
         //$contact = $request->only('id,user_id');//
-        $users = user::Paginate(4);
-        return view('date', ['users' => $users]);
+        $users = user::with('works')->Paginate(7);
+        $works = work::all();
+        return view('date', compact('users', 'works'));
+        //return view('date', ['users' => $users]);
     }
+    //public function aaa()
+    //{
+    //    $works = work::Paginate(4);
+    //    return view('date', ['works' => $works]);
+    //}
 }

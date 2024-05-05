@@ -17,17 +17,21 @@
             <div class="header-logo">Atte</div>
             <nav class="header-nav">
                 @if (Auth::check())
-                <ul class="header-nav-list">
-                    <li class="header-nav-item"><a href="../stamp">ホーム</a></li>
-                    <li class="header-nav-item"><a href="../date">日付一覧</a></li>
-                    <li class="header-nav-item">
-                        <form class="form" action="/logout" method="post">
-                            @csrf
-                            <button class="header-nav__button">ログアウト</button>
-                        </form>
-                    </li>
+                <div class="header-nav-list">
+                    <form action="/stamp" method="GET">
+                        @csrf
+                        <input class="header-nav-item" type="submit" value="ホーム">
+                    </form>
+                    <form action="/date" method="GET">
+                        @csrf
+                        <input class="header-nav-item" type="submit" value="日付一覧">
+                    </form>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <input class="header-nav-item" type="submit" value="ログアウト">
+                    </form>
                     @endif
-                </ul>
+                </div>
             </nav>
         </div>
     </header>

@@ -19,8 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'mail',
-        'pass',
+        'email',
+        'password',
     ];
 
     /**
@@ -41,8 +41,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function getDetail()
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            // 他の必要なデータ...
+        ];
+    }
 
-    public function work(){
-        return $this->hasMany('App\Models\Work');
+
+    public function works(){
+        return $this->hasMany(Work::class);
     }
 }

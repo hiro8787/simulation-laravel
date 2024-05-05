@@ -15,13 +15,17 @@ use App\Http\Controllers\WorkController;
 |
 */
 
-Route::post('/login', [AtteController::class, 'login']);
-Route::get('/register', [AtteController::class, 'store']);
+    
+    Route::get('/', [AtteController::class, 'index']);
+    //Route::post('/register', [AtteController::class, 'register']);
+    //Route::get('/stamp', [AtteController::class, 'stamp']);
+    
 
 Route::middleware('auth')->group(function (){
-    Route::get('/', [AtteController::class, 'login']);
-    Route::post('/stamp', [AtteController::class, 'stamp']);
+    Route::post('/stamp', [AtteController::class, 'store']);
+    Route::get('/stamp', [AtteController::class, 'store']);
     Route::get('/date', [AtteController::class, 'date']);
+    //Route::get('/date', [AtteController::class, 'aaa']);
 });
 //Route::post('/works', [AtteController::class, 'date']);//
 
