@@ -36,4 +36,8 @@ class Work extends Model
             'work_start' => $this->work_start,
         ];
     }
+
+    public function rests(){
+        return $this->hasMany(Rest::class);
+    }
 }

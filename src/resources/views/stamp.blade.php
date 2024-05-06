@@ -6,9 +6,9 @@
 
 @section('content')
 <body>
-    @foreach ($users as $user)
-    <input type="text" name="name" value="{{ $user->name }}さんお疲れ様です！" />
-    @endforeach
+    
+    <input type="text" name="name" value="{{ auth()->user()->name }}さんお疲れ様です！" />
+    
     <div class="form-action">
     <form class="form" name="stamp" method="GET" action="/date">
     @csrf

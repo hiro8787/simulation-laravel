@@ -14,3 +14,35 @@ td {
     text-align: left;
     padding: 0 20px;
 }
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.pagination li:not(.active) {
+    border: 1px solid #E0DFDE;
+    padding: 4px 12px;
+}
+
+.pagination li:not(:last-child) {
+    border-right: none;
+}
+
+.pagination a {
+    color: #1369bf;
+    text-decoration: none;
+}
+
+.pagination__link {
+    text-decoration: none;
+}
+
+.active {
+    padding: 4px 12px;
+    border: 1px solid #1369bf;
+    background-color: #1369bf;
+    color: #FFF;
+}

@@ -15,24 +15,19 @@ class AtteController extends Controller
         return view('auth.login', compact('users'));
     }
 
-
-    public function store()
+    public function store(Request $request)
     {
-        $users = User::all();
+        $users = User::find('users_id');
         return view('stamp', ['users' => $users]);
     }
-    
+
     public function date()
     {
         //$contact = $request->only('id,user_id');//
-        $users = user::with('works')->Paginate(7);
+        $users = user::with('works')->Paginate(5);
         $works = work::all();
         return view('date', compact('users', 'works'));
         //return view('date', ['users' => $users]);
     }
-    //public function aaa()
-    //{
-    //    $works = work::Paginate(4);
-    //    return view('date', ['works' => $works]);
-    //}
+
 }
