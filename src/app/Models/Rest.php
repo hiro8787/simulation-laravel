@@ -10,7 +10,7 @@ class Rest extends Model
     use HasFactory;
 
     public function work(){
-        return $this->belongsTo('App\Models\Work');
+        return $this->belongsTo('Work::class');
     }
 
     protected $guarded = array('id');

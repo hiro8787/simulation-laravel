@@ -53,6 +53,6 @@ class User extends Authenticatable
 
 
     public function works(){
-        return $this->hasMany(Work::class);
+        return $this->hasMany('App\Models\Work');
     }
 }

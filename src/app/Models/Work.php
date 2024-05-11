@@ -7,23 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
-    use HasFactory;
+    //use HasFactory;
 
-    public function user(){
-        return $this->belongsTo('App\Models\User');
-    }
+    //protected $guarded = [
+    //    'id',
+    //];
 
     protected $guarded = array('id');
     public static $rules = array(
         'user_id' => 'required',
         'work_start' => 'required',
-        'work_end' => 'required',
-        'work_date' => 'required',
+        //'work_end' => 'required',
+        //'work_date' => 'required',
     );
 
     public function getWork_start(){
         return 'ID'.$this->id . ':' .  $this->work_start;
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+/*
     public function getWork_end(){
         return 'ID'.$this->id . ':' .  $this->work_end;
     }
@@ -36,7 +41,7 @@ class Work extends Model
             'work_start' => $this->work_start,
         ];
     }
-
+*/
     public function rests(){
         return $this->hasMany(Rest::class);
     }

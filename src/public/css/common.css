@@ -11,7 +11,12 @@
 }
 
 .header-nav-item {
-    padding: 0 30px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    margin: 0 30px;
 }
 
 .header-nav-list {

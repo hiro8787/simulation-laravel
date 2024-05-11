@@ -2,10 +2,6 @@ body {
     margin: 0;
 }
 
-.header {
-    
-}
-
 .header-logo {
     font-size: 30px;
     font-weight: bold;
@@ -23,14 +19,6 @@ body {
     font-size: 20px;
     padding: 40px;
     background-color: rgba(169, 169, 169, 0.139);
-}
-
-.form {
-
-}
-
-.form-item {
-    
 }
 
 .form-item-text {
