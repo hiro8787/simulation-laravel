@@ -14,19 +14,19 @@
         <td>休憩時間</td>
         <td>勤務時間</td>
     </tr>
+    @foreach ($authors as $author)
     @foreach ($users as $user)
-    
     <tr class="table-title">
-        <td>{{ $user->getDetail()['name'] }}</td>
+        <td>{{ $user->name }}</td>
         <td>
-            <input type="hidden" name="work_start" value="{{ $user->Work_start }}">
+            <input type="hidden" name="work_start" value="{{ $author->work_start }}">
         </td>
         <td>勤務終了</td>
         <td>休憩時間</td>
         <td>勤務時間</td>
     </tr>
     @endforeach
-    
+    @endforeach
 </table>
 <footer>
 {{ $users->links('vendor.pagination.custom') }}

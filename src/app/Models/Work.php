@@ -8,11 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Work extends Model
 {
     //use HasFactory;
-
+    public function getUserNameById()
+    {
+        return DB::table('works')
+            ->join('users', 'works.user_id', '=', 'users.id')
+            ->select('users.name')
+            ->get();
+    }
     //protected $guarded = [
     //    'id',
     //];
-
+    protected $fillable = [
+        'user_id', 'work_start', 'work_end','work_date'
+    ];
+/*
     protected $guarded = array('id');
     public static $rules = array(
         'user_id' => 'required',
@@ -24,9 +33,11 @@ class Work extends Model
     public function getWork_start(){
         return 'ID'.$this->id . ':' .  $this->work_start;
     }
-
+*/
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
+    //public function user(){
+        //return $this->belongsTo('App\Models\User');
     }
 /*
     public function getWork_end(){

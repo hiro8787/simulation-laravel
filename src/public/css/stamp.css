@@ -1,5 +1,6 @@
 .user {
     text-align: center;
+    
 }
 
 .user-name {
@@ -17,25 +18,40 @@ main {
 }
 
 .form-action {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+}
 
+.rest {
+    display: flex;
+    justify-content: center;
+}
+
+.work-action {
+    text-align: center;
+}
+
+.rest-action {
+    text-align: center;
+    
 }
 
 .form-button-top {
-    width: 35%;
+    width: 400px;
     height: 180px;
     font-size: 15px;
     font-weight: bold;
     background-color: #fff;
     margin: 0 10px 10px;
     padding: 30px;
+    align-items: center;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .form-button-bottom {
-    width: 35%;
+    width: 400px;
     height: 180px;
     font-size: 15px;
     font-weight: bold;

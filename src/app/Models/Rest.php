@@ -9,10 +9,26 @@ class Rest extends Model
 {
     use HasFactory;
 
-    public function work(){
-        return $this->belongsTo('Work::class');
+    public function getUserNameById()
+    {
+        return DB::table('rests')
+            ->join('works', 'rests.work_id', '=', 'works.id')
+            ->get();
     }
 
+    protected $fillable = [
+        'work_id',
+        'rest_start',
+        'rest_end',
+        'rest_time'
+    ];
+
+    public function work()
+    {
+        return $this->belongsTo('Work::class');
+    }
+}
+/*
     protected $guarded = array('id');
     public static $rules = array(
         'work_id' => 'required',
@@ -31,3 +47,4 @@ class Rest extends Model
         return 'ID'.$this->id . ':' .  $this->rest_time;
     }
 }
+*/
