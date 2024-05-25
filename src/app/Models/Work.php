@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
-    //use HasFactory;
+    use HasFactory;
     public function getUserNameById()
     {
         return DB::table('works')
@@ -18,6 +18,7 @@ class Work extends Model
     //protected $guarded = [
     //    'id',
     //];
+    
     protected $fillable = [
         'user_id', 'work_start', 'work_end','work_date'
     ];
@@ -36,8 +37,6 @@ class Work extends Model
 */
     public function user(){
         return $this->belongsTo(User::class);
-    //public function user(){
-        //return $this->belongsTo('App\Models\User');
     }
 /*
     public function getWork_end(){
@@ -54,6 +53,6 @@ class Work extends Model
     }
 */
     public function rests(){
-        return $this->hasMany(Rest::class);
+        return $this->hasMany('App\Models\Rest');
     }
 }
