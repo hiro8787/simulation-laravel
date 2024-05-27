@@ -62,3 +62,7 @@ main {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.form-button-top:disabled {
+    background: #ccc;
+}

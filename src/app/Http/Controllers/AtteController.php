@@ -30,9 +30,11 @@ class AtteController extends Controller
     {
         //勤務開始は１日１回（１回押すと非活性にする）
         $user = Auth::user();
+
+        
         //WorkモデルのユーザーIDカラムがログインしているユーザーIDと同じ最新の最初のデータを取得し$oldTimeInに格納
         $oldTimeIn = Work::where('user_id', $user->id)->latest()->first();
-        
+        dd($oldTimeIn);
         $oldDay = '';
 
         //ユーザーIDカラムがログインユーザーIDと同じなら
@@ -45,7 +47,11 @@ class AtteController extends Controller
         $today = Carbon::today();
         //勤務開始日と今日の日付が等しく勤務終了をしていない場合メッセージを表示してリダイレクト
         if(($oldDay == $today) && (empty($oldTimeIn->work_end))){
-            return redirect()->back()->with('message','出勤打刻済みです');
+            $disabled = true;
+        }
+        else {
+            $disabled = false;
+        return view('stamp', ['disabled' => $disabled ? 'disabled' : '']);
         }
         //ユーザーIDカラムがログインユーザーIDと同じなら
         if($oldTimeIn){
@@ -58,6 +64,8 @@ class AtteController extends Controller
         if($oldDay == $today){
             return redirect()->back()->with('message','退勤打刻済みです');
         }
+        
+
 
         $times = Work::create([
             'user_id' => $user->id,
@@ -73,8 +81,10 @@ class AtteController extends Controller
         $user = Auth::user();
         //dd($user);
         //WorkモデルのユーザーIDカラムがログインしているユーザーIDと同じ最新の最初のデータを取得し$workEndに格納
-        $workEnd = Work::join('rests', 'rests.work_id', '=', 'works.user_id')
-            ->where('works.user_id', $user->id)
+        $workEnd = User::join('works', 'works.user_id', '=', 'users.id')
+            ->join('rests', 'rests.work_id', '=', 'works.user_id')
+            ->where('user_id', $user->id)
+            //->orderBy('works.created_at')
             ->first();
         dd($workEnd);
 
@@ -100,11 +110,11 @@ class AtteController extends Controller
             //退勤処理をしていない場合
             if(empty($workEnd->work_end)){
                 //退勤処理をしていない場合で出勤開始もしていない場合
-                if($workEnd->workStart){
-                    return redirect()->back->with('message','勤務開始前です');
+                if(empty($workEnd->work_start)){
+                    return redirect()->back()->with('message','勤務開始前です');
                 }
                 //出勤済みで退勤処理がまだで休憩をしていない場合リダイレクトしてメッセージ表示
-                if($workEnd->rest_start || $workEnd->rest_end){
+                if($workEnd->rest_start && $workEnd->rest_end){
                     return redirect()->back()->with('message','休憩がまだです');
                     }
                     //退勤処理が実行されれば退勤時間と勤務時間を代入する
@@ -113,6 +123,7 @@ class AtteController extends Controller
                         'work_end' => Carbon::now(),
                         'work_data' => $workTime
                     ]);
+                    //dd($workEnd);
                     return redirect()->back()->with('message','お疲れ様でした');
                 }
             }
@@ -123,13 +134,17 @@ class AtteController extends Controller
                 $oldWorkEnd = new Carbon();
                 $oldWorkEndDay = $oldWorkEnd->day;
                 if($day == $oldWorkEndDay){
-                return redirect()->back()->with('message','退勤済みです');
+                    return redirect()->back()->with('message','退勤済みです');
+                }
+                else{
+                    return redirect()->back()->with('message','出勤打刻をしてください');
                 }
             }
-        }$times = Rest::create([
-            'work_id' => $user->id,
-            'rest_start' => Carbon::now(),
-        ]);
+                $times = Rest::create([
+                    'work_id' => $user->id,
+                    'rest_start' => Carbon::now(),
+                ]);
+            }
     }
 
     public function rest_start()
@@ -138,23 +153,30 @@ class AtteController extends Controller
         //休憩開始は１度押すと休憩終了まで非活性にする
         //勤務開始後でないと休憩開始は押せない
         $user = Auth::user();
-        
-        $restStart = Work::where('user_id', $user->id)->latest()->first();
+        //dd($user);
+        /*
+        $times = Rest::create([
+            'work_id' => $user->id,
+            'rest_start' => Carbon::now(),
+        ]);
+        */
+        //dd($times);
+        $restStart = Rest::where('work_id', $user->id)->latest()->first();
 
         $userWithWork = Work::join('rests', 'rests.work_id', '=', 'works.user_id')
         ->where('works.user_id', $user->id)
         ->first();
-        //dd($userWithWork);
+        dd($userWithWork);
+
         //勤務開始をしていて勤務終了前の処理
         
         if($userWithWork->work_start && !$userWithWork->work_end && !$userWithWork->rest_start){
             $userWithWork->update([
-            'rest_start'=> Carbon::now()
+            'work_id'=> $user->id,
+            'rest_start'=> Carbon::now(),
             ]);
         }
-        else{
-            return redirect()->back()->with('message','勤務時間外です');
-        }
+        
         
         //$restStart = new Carbon($restStart->rest_start);
         

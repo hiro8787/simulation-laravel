@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/stamp', [AtteController::class, 'store']);
     
     //Route::get('/work_start', [AtteController::class, 'work_start']);
+    Route::get('/work_start', [AtteController::class, 'work_start']);
     Route::post('/work_start', [AtteController::class, 'work_start']);
     Route::post('/work_end', [AtteController::class, 'work_end']);
     Route::post('/rest_start', [AtteController::class, 'rest_start']);

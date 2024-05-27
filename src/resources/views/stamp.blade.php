@@ -15,7 +15,7 @@
         @csrf
             <div class="work__button">
                 <input type="hidden" name="work_start" value="user_id">
-                <button class="form-button-top" name="workStart" value="{{ Auth::user()->id }}">勤務開始</button>
+                <button class="form-button-top" name="workStart" value="{{ Auth::user()->id }}"{{ $disabled ?? '' }}>勤務開始</button>
             </div>
         </form>
         <form action="/work_end" method="POST">
