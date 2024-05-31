@@ -12,7 +12,6 @@ class Work extends Model
     {
         return DB::table('works')
             ->join('users', 'works.user_id', '=', 'users.id')
-            ->select('users.name')
             ->get();
     }
     //protected $guarded = [

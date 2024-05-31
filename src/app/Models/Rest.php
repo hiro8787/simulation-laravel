@@ -12,7 +12,7 @@ class Rest extends Model
     public function getUserNameById()
     {
         return DB::table('rests')
-            ->join('works', 'rests.work_id', '=', 'works.id')
+            ->join('works', 'rests.work_id', '=', 'works.user_id')
             ->get();
     }
 
