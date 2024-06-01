@@ -24,16 +24,18 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-        'name' => 'required',
-        'email' => 'required | email',
-        'user_id' => 'required',
-        'work_start' => 'required',
-        'work_end' => 'required',
-        'work_date' => 'required',
-        'work_id' => 'required',
-        'rest_start' => 'required',
-        'rest_end' => 'required',
-        'rest_time' => 'required',
+            'email' => 'required|email|max:191',
+            'password' => 'required|max:20',
+        ];
+    }
+    public function message()
+    {
+        return [
+            'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスをメール形式で入力してください',
+            'email.max:191' => 'メールアドレスを191文字以下で入力してください',
+            'password.required' => 'パスワードを入力してください',
+            'password.max:20' => 'パスワードを20文字以内で入力してください',
         ];
     }
 }
