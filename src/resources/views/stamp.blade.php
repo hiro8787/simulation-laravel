@@ -15,7 +15,7 @@
         @csrf
             <div class="work__button">
                 <input type="hidden" name="work_start" value="user_id">
-                <button class="form-button-top" name="work_start" value="{{ Auth::user()->id }}"{{ $disabled ?? '' }}>勤務開始</button>
+                <button class="form-button-top" name="work_start" value="{{ Auth::user()->id }}" {{ $disabled ?? '' }}>勤務開始</button>
             </div>
         </form>
         <form action="/work_end" method="POST">
@@ -31,14 +31,14 @@
         @csrf
             <div class="rest__button">
                 <input type="hidden" name="rest_start" value="user_id" />
-                <button class="form-button-bottom" name="rest_start" value="{{ Auth::user()->id }}">休憩開始</button>
+                <button class="form-button-bottom" name="rest_start" value="{{ Auth::user()->id }}" {{ $disabledRest ?? '' }}>休憩開始</button>
             </div>
         </form>
         <form action="/rest_end" method="POST">
         @csrf
             <div class="rest__button">
                 <input type="hidden" name="rest_end" value="user_id" />
-                <button class="form-button-bottom" name="rest_end" value="{{ Auth::user()->id }}">休憩終了</button>
+                <button class="form-button-bottom" name="rest_end" value="{{ Auth::user()->id }}" {{ $disabledRestEnd ?? '' }}>休憩終了</button>
             </div>
         </form>
     </div>
