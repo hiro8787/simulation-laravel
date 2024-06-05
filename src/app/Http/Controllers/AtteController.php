@@ -80,7 +80,7 @@ class AtteController extends Controller
                 else {
                     $workEnd->update([
                         'work_end'=> Carbon::now(),
-                        'work_data' => $workTime
+                        'work_date' => $workTime
                     ]);
                     return redirect()->back()->with('message','お疲れ様でした');
                 }
@@ -137,13 +137,20 @@ class AtteController extends Controller
 
         $disabledRestEnd = false;
 
-        if($userWithWork)
-        {
+        if($userWithWork){
+            $restStart = $userWithWork->rest_start;
+            $restStart = \Carbon\Carbon::parse($restStart);
+            $restEnd = Carbon::now();
+            $restTime = $restStart->diffInMinutes($restEnd);
+
             $userWithWork->update([
-                'rest_end' => Carbon::now()
+                'rest_end' => Carbon::now(),
+                'rest_time' => $restTime
             ]);
             $disabledRestEnd = true;
             return redirect()->back()->with('message', '休憩終了しました。')->with('disabledRestEnd', $disabledRestEnd);
+        }else{
+            $disabledRestEnd = false;
         }
 
         return redirect()->back()->with('message', '休憩開始をしていません。')->with('disabledRestEnd', $disabledRestEnd);
@@ -155,17 +162,22 @@ class AtteController extends Controller
     {
         //このページは本日の日付の処理が表示される画面
         //dd($request);
-        $authors = Work::paginate(5);
+        $today = Carbon::today();
+        $user = Auth::user();
+        $authors = User::join('works','works.user_id','users.id')
+        ->join('rests','rests.id','works.user_id')
+        ->whereDate('works.created_at',$today)
+        ->paginate(5);
+        //$authors = Work::paginate(5);
         //dd($authors);
         $this->date['authors']=$authors;
         //dd($authors);
         //$user = Auth::user();
-        $user = User::join('works','works.user_id','users.id')
-        ->join('rests','rests.id','works.user_id')
-        
-        ->get();
+        //$user = User::join('works','works.user_id','users.id')
+        //->join('rests','rests.id','works.user_id')
+        //->get();
         ///dd($user);
-        $now = Carbon::now();
+        
         $users = User::with('works')->Paginate(5);
 
         //dd($users);
@@ -174,7 +186,7 @@ class AtteController extends Controller
         
         //dd($times);
         
-        return view('date', compact('user','users','now', 'authors'));
+        return view('date', compact('user','users','today', 'authors'));
     }
 
     //public function add(){

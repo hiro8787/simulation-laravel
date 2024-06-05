@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<a>{{$now->isoFormat('YYYY-MM-DD')}}</a>
+<a>{{$today->isoFormat('YYYY-MM-DD')}}</a>
 <table>
     <tr class="table-title">
         <td>名前</td>
@@ -15,15 +15,15 @@
         <td>勤務時間</td>
     </tr>
     @foreach ($authors as $author)
-    @foreach ($users as $user)
+    
     <tr class="table-title">
-        <td>{{ $author->user->name}}</td>
+        <td>{{ $author->name }}</td>
         <td>{{ $author->work_start }}</td>
         <td>{{ $author->work_end }}</td>
-        <td>{{ $author->rest_start }}</td>
-        <td>勤務時間</td>
+        <td>{{ $author->rest_time }}</td>
+        <td>{{ $author->work_time }}</td>
     </tr>
-    @endforeach
+    
     @endforeach
 </table>
 <footer>
