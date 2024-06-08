@@ -19,12 +19,12 @@ class UsersTableSeeder extends Seeder
         'email' => 'yamaguchi@gmail.com',
         'password' => 'yamaguchi5689',
         ];
-        DB::table('Users')->insert($param);
+        DB::table('users')->insert($param);
         $param = [
         'name' => '山田',
         'email' => 'yamada@gmail.com',
         'password' => 'yamada6498',
         ];
-        DB::table('Users')->insert($param);
+        DB::table('users')->insert($param);
     }
 }

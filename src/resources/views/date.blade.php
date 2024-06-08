@@ -5,7 +5,13 @@
 @endsection
 
 @section('content')
-<a>{{$today->isoFormat('YYYY-MM-DD')}}</a>
+<div>
+    <form class="day" action="{{ url('/date') }}">
+        <button class="day-item" type="submit" name="date" value="{{ $yesterday->toDateString() }}"><</button>
+        <span>{{ $currentDate->toDateString() }}</span>
+        <button class="day-item" type="submit" name="date" value="{{ $tomorrow->toDateString() }}">></button>
+    </form>
+</div>
 <table>
     <tr class="table-title">
         <td>名前</td>
@@ -15,18 +21,16 @@
         <td>勤務時間</td>
     </tr>
     @foreach ($authors as $author)
-    
-    <tr class="table-title">
+    <tr class="table-title-date">
         <td>{{ $author->name }}</td>
-        <td>{{ $author->work_start }}</td>
-        <td>{{ $author->work_end }}</td>
+        <td>{{ $author->work_start = \Carbon\Carbon::parse($author->work_start)->format('H:i:s') }}</td>
+        <td>{{ $author->work_end = \Carbon\Carbon::parse($author->work_end)->format('H:i:s')}}</td>
         <td>{{ $author->rest_time }}</td>
-        <td>{{ $author->work_time }}</td>
+        <td>{{ $author->work_date }}</td>
     </tr>
-    
     @endforeach
 </table>
 <footer>
-{{ $users->links('vendor.pagination.custom') }}
+{{ $user->links('vendor.pagination.custom') }}
 </footer>
 @endsection
